@@ -14,6 +14,7 @@ import org.openmrs.module.appointmentscheduling.reporting.data.definition.Appoin
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStartDateDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentStatusDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentTypeDataDefinition;
+import org.openmrs.module.appointmentscheduling.reporting.data.definition.AppointmentUuidDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.query.definition.BasicAppointmentQuery;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
@@ -95,6 +96,7 @@ public class AppointmentSchedulingUIDataSetDefinitionLibrary extends BaseDefinit
             // the EMR-API module may throw this if the emr.primaryIdentifierTYpe definition has not been specifed
         }
 
+        dsd.addColumn("uuid", new AppointmentUuidDataDefinition(), "", null);
         dsd.addColumn("provider", new AppointmentProviderDataDefinition(), "", formatted);
         dsd.addColumn("providerUuid", new AppointmentProviderDataDefinition(), "", new PropertyConverter(String.class, "uuid"));
         dsd.addColumn("appointmentType", new AppointmentTypeDataDefinition(), "", formatted);

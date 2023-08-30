@@ -118,7 +118,14 @@ function ($scope, AppointmentService, LocationService, ngGridHelper, filterFilte
             dailyAppointmentsHelper.initializeMessages($scope);
 
             AppointmentService.getDailyAppointmentsDataSet(getSearchParams()).then( function(results){
-                $scope.dailyAppointments = results.rows;
+                $scope.dailyAppointments = results.rows.map(function(row) {
+                    row.virtualLink = '';
+                    if (dailyAppointmentsHelper.isVirtualAppointment(row, $scope)){
+                        row.virtualLink = dailyAppointmentsHelper.getEsbiApplicationUrl(row.uuid);
+                    }
+                    return row;
+                });
+
                 dailyAppointmentsHelper.findProvidersFromGrid($scope);
                 dailyAppointmentsHelper.findCreatorsFromGrid($scope);
                 dailyAppointmentsHelper.manageMessages($scope);

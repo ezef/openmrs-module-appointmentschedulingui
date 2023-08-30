@@ -71,7 +71,7 @@ angular.module('dailyAppointmentsHelper')
                            displayName: emr.message("appointmentschedulingui.dailyScheduledAppointments.appointmentType") },
 
                        { field: 'telephoneNumber',
-                           width: '10%',
+                           width: '5%',
                            cellTemplate: "<div>{{ row.getProperty(\'telephoneNumber\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
                            displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.phoneNumber") },
 
@@ -83,7 +83,12 @@ angular.module('dailyAppointmentsHelper')
                        { field: 'creator',
                            width: '10%',
                            cellTemplate: "<div>{{ row.getProperty(\'creator\') }}</div>", // putting it in div causes it to wrap if it extends past column, which is what we want
-                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.creator") }
+                           displayName:emr.message("appointmentschedulingui.dailyScheduledAppointments.creator") },
+
+                       { field: 'virtualMeetLink',
+                           width: '5%',
+                           cellTemplate: "<div><a ng-if='row.getProperty(\"virtualLink\")' target=\"_blank\" ng-href=\"{{ row.getProperty(\'virtualLink\') }}\">LINK</a></div>",
+                           displayName: "Virtual Meet Link" }
 
                             ]
                };
@@ -164,6 +169,16 @@ angular.module('dailyAppointmentsHelper')
                    }
                }
                return appointmentTypeUuidsList;
+           },
+           getEsbiApplicationUrl: function(uuid){
+                const base = 'http://127.0.0.1';
+
+                return base + '/appointment/telehealth/' + uuid;
+           },
+           isVirtualAppointment: function(appointment, scope){
+               // Adjust as needed if the criteria changes
+               // ID for the virtual e-sbi location
+               return scope.locationFilter.uuid === '89843a8b-baf8-444b-98f1-9dc507af2d99';
            }
         }
     });
