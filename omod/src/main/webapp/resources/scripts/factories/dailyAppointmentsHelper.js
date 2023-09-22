@@ -173,7 +173,7 @@ angular.module('dailyAppointmentsHelper')
            getEsbiApplicationUrl: function(uuid){
                 const base = 'http://127.0.0.1';
 
-                return base + '/appointment/telehealth/' + uuid;
+                return base + `/hcp/appointments/${uuid}/telehealth-openmrs`;
            },
            isVirtualAppointment: function(appointment, scope){
                // Adjust as needed if the criteria changes
